@@ -6,11 +6,11 @@ export async function POST(req: Request) {
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
-      Authorization: "Bearer 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",
+      Authorization: "Bearer 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",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "openai/gpt-3.5-turbo",
+      model: "model: mistralai/mistral-7b-instruct",
       messages: [
         {
           role: "user",
