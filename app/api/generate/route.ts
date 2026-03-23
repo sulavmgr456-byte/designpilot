@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
-      Authorization: "Bearer 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",
+      Authorization: "Bearer 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",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -15,24 +15,30 @@ export async function POST(req: Request) {
         {
           role: "user",
           content: `
-Give a UX blueprint for this idea: ${idea}
+You are a UX expert.
 
-Respond STRICTLY in this format:
+Generate a detailed UX blueprint for this idea: ${idea}
+
+Respond EXACTLY in this format:
 
 Layout:
-...
+Write 2-3 clear sentences.
 
 Navigation:
-...
+Write 2-3 clear sentences.
 
 Design:
-...
+Write 2-3 clear sentences.
 
 Monetization:
-...
+Write 2-3 clear sentences.
 
 Growth:
-...
+Write 2-3 clear sentences.
+
+IMPORTANT:
+- Do NOT leave any section empty
+- Do NOT skip any section
 `,
         },
       ],
@@ -40,6 +46,8 @@ Growth:
   });
 
   const data = await response.json();
+  console.log(data);
 
   return NextResponse.json(data);
 }
+
