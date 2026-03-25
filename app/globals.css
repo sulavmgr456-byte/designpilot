@@ -267,6 +267,20 @@ summary::-webkit-details-marker {
   margin-left: 2px;
 }
 
+/* ═══════ Star Rating ═══════ */
+.star-btn {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  line-height: 0;
+}
+
+.star-btn:hover {
+  transform: scale(1.15);
+}
+
 /* ═══════ Line Clamps ═══════ */
 .line-clamp-2 {
   display: -webkit-box;
