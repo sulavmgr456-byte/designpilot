@@ -82,7 +82,12 @@ export default function Home() {
   const currentProgress = step === "idea" ? 0 : step === "questions" ? 1 : 2;
 
   /* ───────── Animations ───────── */
-  const fadeUp = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -10 }, transition: { duration: 0.45, ease: "easeOut" } };
+  const fadeUp = { 
+    initial: { opacity: 0, y: 20 }, 
+    animate: { opacity: 1, y: 0 }, 
+    exit: { opacity: 0, y: -10 }, 
+    transition: { duration: 0.45, ease: "easeOut" as const } 
+  };
 
   return (
     <main className="min-h-screen bg-[#0a0f1e] text-slate-200 font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
