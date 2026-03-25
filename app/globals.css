@@ -1,23 +1,30 @@
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=cabinet-grotesk@400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --bg: #0A0A0F;
-  --surface: #13131A;
-  --accent-cyan: #00E5FF;
-  --accent-violet: #7B2FFF;
-  --text: #F0F0FF;
-  --muted: #6E6E8A;
-  --border: #1E1E2E;
+  --bg: #0D0D14;
+  --surface: #1A1A26;
+  --surface-2: #22223A;
+  --accent-aqua: #2AFFD6;
+  --accent-orange: #FF6B35;
+  --accent-violet: #8B5CF6;
+  --text: #E8F4F0;
+  --muted: #8B9EA8;
+  --border: #252538;
 }
 
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--text);
-  --font-serif: var(--font-dm-serif), serif;
-  --font-mono: var(--font-jetbrains), monospace;
-  --font-sans: var(--font-lora), sans-serif;
+  --font-serif: 'Clash Display', 'DM Serif Display', serif;
+  --font-sans: 'Cabinet Grotesk', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
   --color-surface: var(--surface);
-  --color-accent-cyan: var(--accent-cyan);
+  --color-surface-2: var(--surface-2);
+  --color-accent-aqua: var(--accent-aqua);
+  --color-accent-orange: var(--accent-orange);
   --color-accent-violet: var(--accent-violet);
   --color-border-color: var(--border);
   --color-muted-color: var(--muted);
@@ -27,10 +34,9 @@ body {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  cursor: default; /* No custom cursor */
+  overflow-x: hidden;
 }
 
-/* Base custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -39,62 +45,106 @@ body {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: var(--surface-2);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
 }
 
-/* Animations & Details */
-@keyframes fadeUpStagger {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-up-1 {
-  animation: fadeUpStagger 0.6s ease 0s forwards;
-  opacity: 0;
-}
-.animate-fade-up-2 {
-  animation: fadeUpStagger 0.6s ease 0.2s forwards;
-  opacity: 0;
-}
-.animate-fade-up-3 {
-  animation: fadeUpStagger 0.6s ease 0.4s forwards;
-  opacity: 0;
-}
-
+/* Animations */
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  from { transform: translateY(0px); }
+  to { transform: translateY(-10px); }
 }
 
-.animate-float-subtle {
-  animation: float 6s ease-in-out infinite;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Grain Noise Overlay */
-.grain-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 50;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+@keyframes floatBob {
+  from { transform: translateY(-8px); }
+  to { transform: translateY(8px); }
 }
 
-/* Transitions */
+@keyframes floatSubtle {
+  from { transform: translateY(-4px); }
+  to { transform: translateY(4px); }
+}
+
+@keyframes letterOut {
+  to { opacity: 0; filter: blur(8px); transform: translateY(-10px); }
+}
+@keyframes letterIn {
+  from { opacity: 0; filter: blur(8px); transform: translateY(10px); }
+  to   { opacity: 1; filter: blur(0);   transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-float {
+    animation: float 4s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  .animate-float-bob {
+    animation: floatBob 4s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  .animate-float-subtle {
+    animation: floatSubtle 8s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+  .animate-fade-up-1 {
+    animation: fadeUp 0.6s ease 0.1s forwards;
+    opacity: 0;
+  }
+  .animate-fade-up-2 {
+    animation: fadeUp 0.6s ease 0.2s forwards;
+    opacity: 0;
+  }
+  .animate-fade-up-3 {
+    animation: fadeUp 0.6s ease 0.3s forwards;
+    opacity: 0;
+  }
+  .animate-letter-out {
+    animation: letterOut 0.4s ease forwards;
+    will-change: transform, filter, opacity;
+  }
+  .animate-letter-in {
+    animation: letterIn 0.4s ease forwards;
+    will-change: transform, filter, opacity;
+  }
+  
+  /* Particles animations */
+  @keyframes particleFloat1 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(40px, -60px); }
+  }
+  @keyframes particleFloat2 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-50px, -40px); }
+  }
+  @keyframes particleFloat3 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(30px, 50px); }
+  }
+  .particle-1 { animation: particleFloat1 25s ease-in-out infinite alternate; will-change: transform; }
+  .particle-2 { animation: particleFloat2 30s ease-in-out infinite alternate; will-change: transform; }
+  .particle-3 { animation: particleFloat3 35s ease-in-out infinite alternate; will-change: transform; }
+  .particle-4 { animation: particleFloat1 28s ease-in-out infinite alternate-reverse; will-change: transform; }
+  .particle-5 { animation: particleFloat2 22s ease-in-out infinite alternate-reverse; will-change: transform; }
+  .particle-6 { animation: particleFloat3 40s ease-in-out infinite alternate-reverse; will-change: transform; }
+}
+
 * {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.2s;
+  transition: all 0.2s ease;
+}
+
+.text-stroke-aqua {
+  -webkit-text-stroke: 1px var(--color-accent-aqua);
+  color: transparent;
 }
