@@ -1,5 +1,5 @@
-"use client";
 import React, { useState, useCallback, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Step = "landing" | "idea" | "questions" | "generating" | "result";
 
@@ -79,11 +79,8 @@ export default function AntiGravityLanding() {
   const [scrolled, setScrolled] = useState(false);
 
   // Cinematic loading state
-  const [loadingMsgIdx, setLoadingMsgIdx] = useState(0);
-  const [loadingMsgVisible, setLoadingMsgVisible] = useState(true);
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
-  const [generationDone, setGenerationDone] = useState(false);
-  const [showResult, setShowResult] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [messageIndex, setMessageIndex] = useState(0);
 
   const loadingMessages = [
     "Reading your idea...",
@@ -114,30 +111,28 @@ export default function AntiGravityLanding() {
 
   // Cinematic loading: cycle messages
   useEffect(() => {
-    if (step !== 'generating') return;
-    setLoadingMsgIdx(0);
-    setLoadingMsgVisible(true);
-    setElapsedSeconds(0);
-    setGenerationDone(false);
-    setShowResult(false);
-
-    const msgInterval = setInterval(() => {
-      setLoadingMsgVisible(false);
-      setTimeout(() => {
-        setLoadingMsgIdx(prev => (prev + 1) % 13);
-        setLoadingMsgVisible(true);
-      }, 600);
-    }, 4000);
-
-    const timerInterval = setInterval(() => {
-      setElapsedSeconds(prev => prev + 1);
+    if (!loading) {
+      setElapsedTime(0);
+      setMessageIndex(0);
+      return;
+    }
+    const timer = setInterval(() => {
+      setElapsedTime(prev => prev + 1);
     }, 1000);
-
+    const messageTimer = setInterval(() => {
+      setMessageIndex(prev => (prev + 1) % loadingMessages.length);
+    }, 4000);
     return () => {
-      clearInterval(msgInterval);
-      clearInterval(timerInterval);
+      clearInterval(timer);
+      clearInterval(messageTimer);
     };
-  }, [step]);
+  }, [loading]);
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  };
 
   // Load preferences
   useEffect(() => {
@@ -260,13 +255,9 @@ export default function AntiGravityLanding() {
         brief: data.brief || "",
       };
       setResult(resultData);
-      setGenerationDone(true);
-      await new Promise(r => setTimeout(r, 500));
       setStep("result");
     } catch {
       setResult({ text: "Error connecting to AI", prompt: "", brief: "" });
-      setGenerationDone(true);
-      await new Promise(r => setTimeout(r, 500));
       setStep("result");
     }
     setLoading(false);
@@ -716,43 +707,49 @@ export default function AntiGravityLanding() {
               </div>
             </div>
           ) : step === 'generating' ? (
-            <div className="animate-fade-up flex flex-col items-center justify-center py-16 text-center border border-[var(--border)] rounded-xl bg-[#12121a] relative overflow-hidden">
-              {/* Progress bar */}
-              <div className="absolute top-0 left-0 w-full h-[3px] bg-[var(--surface-2)]">
-                <div
-                  className="h-full bg-[var(--accent-aqua)] shadow-[0_0_10px_rgba(42,255,214,0.5)] rounded-full"
-                  style={{
-                    width: generationDone ? '100%' : '95%',
-                    transition: generationDone ? 'width 0.3s ease' : 'none',
-                    animation: generationDone ? 'none' : 'progressFill 150s linear forwards',
-                  }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="glass-card rounded-2xl p-8 md:p-12 text-center border border-[var(--border)] bg-[#12121a] relative overflow-hidden"
+            >
+              <div className="w-full h-0.5 bg-white/[0.06] rounded-full mb-8 overflow-hidden">
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{ background: '#2AFFD6' }}
+                  initial={{ width: "0%" }}
+                  animate={{ width: "95%" }}
+                  transition={{ duration: 150, ease: "linear" }}
                 />
               </div>
-
-              {/* Spinner */}
-              <div className="w-16 h-16 border-2 border-transparent border-t-[var(--accent-aqua)] rounded-full animate-spin mb-10 shadow-[0_0_20px_rgba(42,255,214,0.3)]" />
-
-              {/* Cycling message */}
-              <h3
-                className="font-serif text-[1.4rem] text-[var(--text)] mb-4 min-h-[2em]"
-                style={{
-                  opacity: loadingMsgVisible ? 1 : 0,
-                  transition: 'opacity 0.6s ease',
-                }}
+              <div className="flex justify-center mb-6">
+                <div className="w-12 h-12 rounded-full border-2 border-transparent animate-spin"
+                  style={{ borderTopColor: '#2AFFD6' }}
+                />
+              </div>
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={messageIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4 }}
+                  className="text-xl md:text-2xl text-white mb-3"
+                  style={{ fontFamily: 'var(--font-serif), serif' }}
+                >
+                  {loadingMessages[messageIndex]}
+                </motion.p>
+              </AnimatePresence>
+              <p className="text-sm mb-6"
+                style={{ fontFamily: 'var(--font-mono), monospace', color: '#8B9EA8' }}
               >
-                {loadingMessages[loadingMsgIdx]}
-              </h3>
-
-              {/* Elapsed time */}
-              <p className="text-[var(--muted)] font-mono text-sm mb-8">
-                Generating... {Math.floor(elapsedSeconds / 60)}:{(elapsedSeconds % 60).toString().padStart(2, '0')}
+                Generating... {formatTime(elapsedTime)}
               </p>
-
-              {/* Patience note */}
-              <p className="text-[var(--muted)] font-mono text-xs opacity-50">
+              <p className="text-xs"
+                style={{ color: '#8B9EA8', fontFamily: 'var(--font-mono), monospace' }}
+              >
                 Free AI models take 1-3 minutes. Thank you for your patience 🙏
               </p>
-            </div>
+            </motion.div>
           ) : (
             <div className="animate-fade-up">
               <div className="flex items-center gap-4 mb-10">
