@@ -78,6 +78,29 @@ export default function AntiGravityLanding() {
   const [copied, setCopied] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
+  // Cinematic loading state
+  const [loadingMsgIdx, setLoadingMsgIdx] = useState(0);
+  const [loadingMsgVisible, setLoadingMsgVisible] = useState(true);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [generationDone, setGenerationDone] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+
+  const loadingMessages = [
+    "Reading your idea...",
+    "Analyzing your target audience...",
+    "Choosing the perfect layout structure...",
+    "Crafting your color system...",
+    "Designing your typography...",
+    "Building your component library...",
+    "Writing your animation rules...",
+    "Optimizing for your chosen tool...",
+    "Adding the finishing touches...",
+    "Almost ready — this is going to be good...",
+    "Still cooking... great prompts take a moment...",
+    "Worth the wait, we promise...",
+    "Finalizing your production-ready prompt...",
+  ];
+
   // Feedback State
   const [feedbackSent, setFeedbackSent] = useState(false);
   const [feedbackReaction, setFeedbackReaction] = useState<'👍' | '👎' | null>(null);
@@ -88,6 +111,33 @@ export default function AntiGravityLanding() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Cinematic loading: cycle messages
+  useEffect(() => {
+    if (step !== 'generating') return;
+    setLoadingMsgIdx(0);
+    setLoadingMsgVisible(true);
+    setElapsedSeconds(0);
+    setGenerationDone(false);
+    setShowResult(false);
+
+    const msgInterval = setInterval(() => {
+      setLoadingMsgVisible(false);
+      setTimeout(() => {
+        setLoadingMsgIdx(prev => (prev + 1) % 13);
+        setLoadingMsgVisible(true);
+      }, 600);
+    }, 4000);
+
+    const timerInterval = setInterval(() => {
+      setElapsedSeconds(prev => prev + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(msgInterval);
+      clearInterval(timerInterval);
+    };
+  }, [step]);
 
   // Load preferences
   useEffect(() => {
@@ -210,9 +260,13 @@ export default function AntiGravityLanding() {
         brief: data.brief || "",
       };
       setResult(resultData);
+      setGenerationDone(true);
+      await new Promise(r => setTimeout(r, 500));
       setStep("result");
     } catch {
       setResult({ text: "Error connecting to AI", prompt: "", brief: "" });
+      setGenerationDone(true);
+      await new Promise(r => setTimeout(r, 500));
       setStep("result");
     }
     setLoading(false);
@@ -662,10 +716,42 @@ export default function AntiGravityLanding() {
               </div>
             </div>
           ) : step === 'generating' ? (
-            <div className="animate-fade-up flex flex-col items-center justify-center py-28 text-center border border-[var(--border)] rounded-xl bg-[#12121a]">
-              <div className="w-16 h-16 border-2 border-[var(--accent-aqua)] border-t-transparent rounded-full animate-spin mb-8 shadow-[0_0_20px_rgba(42,255,214,0.3)]"></div>
-              <h3 className="font-serif text-3xl text-[var(--text)] mb-3">Synthesizing rules...</h3>
-              <p className="text-[var(--muted)] font-mono text-sm uppercase tracking-wider">Translating context into rigid UI instructions</p>
+            <div className="animate-fade-up flex flex-col items-center justify-center py-16 text-center border border-[var(--border)] rounded-xl bg-[#12121a] relative overflow-hidden">
+              {/* Progress bar */}
+              <div className="absolute top-0 left-0 w-full h-[3px] bg-[var(--surface-2)]">
+                <div
+                  className="h-full bg-[var(--accent-aqua)] shadow-[0_0_10px_rgba(42,255,214,0.5)] rounded-full"
+                  style={{
+                    width: generationDone ? '100%' : '95%',
+                    transition: generationDone ? 'width 0.3s ease' : 'none',
+                    animation: generationDone ? 'none' : 'progressFill 150s linear forwards',
+                  }}
+                />
+              </div>
+
+              {/* Spinner */}
+              <div className="w-16 h-16 border-2 border-transparent border-t-[var(--accent-aqua)] rounded-full animate-spin mb-10 shadow-[0_0_20px_rgba(42,255,214,0.3)]" />
+
+              {/* Cycling message */}
+              <h3
+                className="font-serif text-[1.4rem] text-[var(--text)] mb-4 min-h-[2em]"
+                style={{
+                  opacity: loadingMsgVisible ? 1 : 0,
+                  transition: 'opacity 0.6s ease',
+                }}
+              >
+                {loadingMessages[loadingMsgIdx]}
+              </h3>
+
+              {/* Elapsed time */}
+              <p className="text-[var(--muted)] font-mono text-sm mb-8">
+                Generating... {Math.floor(elapsedSeconds / 60)}:{(elapsedSeconds % 60).toString().padStart(2, '0')}
+              </p>
+
+              {/* Patience note */}
+              <p className="text-[var(--muted)] font-mono text-xs opacity-50">
+                Free AI models take 1-3 minutes. Thank you for your patience 🙏
+              </p>
             </div>
           ) : (
             <div className="animate-fade-up">

@@ -148,3 +148,8 @@ body {
   -webkit-text-stroke: 1px var(--color-accent-aqua);
   color: transparent;
 }
+
+@keyframes progressFill {
+  0% { width: 0%; }
+  100% { width: 95%; }
+}
