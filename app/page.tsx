@@ -749,7 +749,7 @@ export default function AntiGravityLanding() {
               <p className="text-xs"
                 style={{ color: '#8B9EA8', fontFamily: 'var(--font-mono), monospace' }}
               >
-                Free AI models take 1-3 minutes. Thank you for your patience 🙏
+                Engineering your custom UI architecture. This usually takes 1-2 minutes.
               </p>
             </motion.div>
           ) : (
