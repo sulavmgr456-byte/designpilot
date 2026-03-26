@@ -487,9 +487,10 @@ export default function AntiGravityLanding() {
           <div className="font-serif font-bold text-2xl tracking-wide text-[var(--text)]">DesignPilot</div>
           <div className="hidden md:flex items-center gap-6 font-mono text-sm">
             <a href="#how-it-works" className="text-[var(--muted)] hover:text-[var(--text)] transition-colors">How it works</a>
+            <a href="#pricing" className="text-[var(--muted)] hover:text-[var(--text)] transition-colors">Pricing</a>
             <div className="px-3 py-1.5 rounded-full border border-[var(--accent-aqua)] bg-[rgba(42,255,214,0.05)] text-[var(--accent-aqua)] text-xs uppercase tracking-wider flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-aqua)] animate-pulse"></span>
-              Free to use
+              v1.0.4 Live
             </div>
           </div>
         </div>
@@ -561,12 +562,12 @@ export default function AntiGravityLanding() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            { title: "Built for Real Tools", desc: "Every prompt is optimized specifically for v0, Bolt, Cursor, and Lovable — not generic AI input", dur: "6s" },
-            { title: "Human-Looking Output", desc: "Our prompts are so specific that the UI you build won't look AI-generated. It looks designed.", dur: "7s" },
-            { title: "You Describe, We Translate", desc: "No design knowledge needed. Tell us your idea in plain words and we handle the design thinking.", dur: "8s" },
-            { title: "Color Intelligence", desc: "We recommend palettes based on your project before you even ask. Or describe your vibe and we'll match it.", dur: "9s" },
-            { title: "Any Stack, Any Scale", desc: "From a simple landing page to a full stack app with auth — we generate prompts for every complexity level.", dur: "10s" },
-            { title: "Built by a 17-year-old from Nepal", desc: "Not a big company. Just a young builder who wanted a better tool and built it. Fast, honest, and improving every day.", dur: "11s" }
+            { title: "Prompt Precision", desc: "Every prompt is obsessively engineered for v0, Bolt, and Cursor. No more fighting with generic instructions that break your layout.", dur: "6s" },
+            { title: "Senior UI Logic", desc: "Our prompts don't just 'look' good—they're architected with proper spacing, typography hierarchy, and a design-first soul.", dur: "7s" },
+            { title: "The Speed of AI", desc: "Skip the weeks of design handoff. Tell us your vision in plain words and get a production-ready prompt in seconds.", dur: "8s" },
+            { title: "Intelligent Theming", desc: "Our engine suggests color palettes based on your project's industry and target audience. Or describe your brand's soul.", dur: "9s" },
+            { title: "Enterprise Logic", desc: "From simple pages to complex dashboards with auth, each prompt is a masterclass in clean, scalable UI architecture.", dur: "10s" },
+            { title: "Next-Gen Design DNA", desc: "We're a next-gen startup on a mission to kill generic AI design. Our engine is built to bridge the gap between code and senior design.", dur: "11s" }
           ].map((card, i) => (
             <div key={i} style={{ animation: `floatBob ${card.dur} ease-in-out infinite alternate` }}>
               <div className="p-8 group bg-[var(--surface)] border border-[var(--border)] rounded-2xl hover:-translate-y-1 hover:border-[var(--accent-aqua)] hover:shadow-[0_0_20px_rgba(42,255,214,0.1)] transition-all duration-300 h-full">
@@ -778,16 +779,30 @@ export default function AntiGravityLanding() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 w-full border-t border-[var(--border)] py-12 bg-[#101018] font-mono">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[var(--muted)]">
-          <div className="flex flex-col gap-2 text-center md:text-left">
-            <div className="font-serif text-xl text-[var(--text)]">DesignPilot</div>
-            <div className="text-xs uppercase tracking-wider">Unanchored Design System Prompts &copy; {new Date().getFullYear()}</div>
+      <footer className="relative z-10 w-full border-t border-[var(--border)] py-16 bg-[#101018] font-mono">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm text-[var(--muted)]">
+          <div className="md:col-span-2 flex flex-col gap-4">
+            <div className="font-serif text-2xl text-[var(--text)]">DesignPilot AI</div>
+            <p className="max-w-xs leading-relaxed font-sans">
+              The world's most opinionated prompt engineering engine. Built for teams who refuse to settle for generic AI layouts.
+            </p>
+            <div className="text-xs uppercase tracking-wider opacity-50 mt-4">
+              &copy; {new Date().getFullYear()} DesignPilot Labs Inc.
+            </div>
           </div>
-          <div className="flex items-center gap-8">
+          <div className="flex flex-col gap-4">
+            <div className="text-[var(--text)] font-bold uppercase tracking-widest text-xs">Product</div>
+            <a href="#generator" className="hover:text-[var(--accent-aqua)] transition-colors">Generator</a>
+            <a href="#how-it-works" className="hover:text-[var(--accent-aqua)] transition-colors">How it Works</a>
+            <a href="#pricing" className="hover:text-[var(--accent-aqua)] transition-colors">Pricing</a>
+            <div className="text-[var(--accent-aqua)] text-[10px] border border-[var(--accent-aqua)] px-2 py-0.5 rounded w-fit">PRO COMPONENT LIBRARY COMING SOON</div>
+          </div>
+          <div className="flex flex-col gap-4">
+            <div className="text-[var(--text)] font-bold uppercase tracking-widest text-xs">Company</div>
+            <a href="#" className="hover:text-[var(--accent-aqua)] transition-colors">About Us</a>
+            <a href="#" className="hover:text-[var(--accent-aqua)] transition-colors">Contact</a>
             <a href="#" className="hover:text-[var(--accent-aqua)] transition-colors">Twitter (X)</a>
             <a href="#" className="hover:text-[var(--accent-aqua)] transition-colors">GitHub</a>
-            <a href="#" className="hover:text-[var(--accent-aqua)] transition-colors">Contact</a>
           </div>
         </div>
       </footer>
