@@ -317,7 +317,7 @@ export default function AntiGravityLanding() {
                 <button
                   key={opt}
                   onClick={() => setProjectType(opt)}
-                  className={`px-5 py-2.5 font-mono text-xs transition-all border rounded-full duration-300 ${projectType === opt ? 'bg-[rgba(42,255,214,0.1)] border-[var(--accent-aqua)] text-[var(--accent-aqua)] shadow-[0_0_15px_rgba(42,255,214,0.15)]' : 'bg-[var(--surface-2)] border-[var(--border)] text-[var(--text)] hover:border-[var(--muted)] hover:text-white'}`}
+                  className={`btn-secondary ${projectType === opt ? '!border-[#2AFFD6] !text-[#2AFFD6]' : ''}`}
                 >
                   {opt}
                 </button>
@@ -336,7 +336,7 @@ export default function AntiGravityLanding() {
                 <button
                   key={opt}
                   onClick={() => setPageCount(opt)}
-                  className={`px-5 py-2.5 font-mono text-xs transition-all border rounded-full duration-300 ${pageCount === opt ? 'bg-[rgba(42,255,214,0.1)] border-[var(--accent-aqua)] text-[var(--accent-aqua)] shadow-[0_0_15px_rgba(42,255,214,0.15)]' : 'bg-[var(--surface-2)] border-[var(--border)] text-[var(--text)] hover:border-[var(--muted)] hover:text-white'}`}
+                  className={`btn-secondary ${pageCount === opt ? '!border-[#2AFFD6] !text-[#2AFFD6]' : ''}`}
                 >
                   {opt}
                 </button>
@@ -362,7 +362,7 @@ export default function AntiGravityLanding() {
                 <button
                   key={opt}
                   onClick={() => setAudience(opt)}
-                  className={`px-5 py-2.5 font-mono text-xs transition-all border rounded-full duration-300 ${audience === opt ? 'bg-[rgba(42,255,214,0.1)] border-[var(--accent-aqua)] text-[var(--accent-aqua)] shadow-[0_0_15px_rgba(42,255,214,0.15)]' : 'bg-[var(--surface-2)] border-[var(--border)] text-[var(--text)] hover:border-[var(--muted)] hover:text-white'}`}
+                  className={`btn-secondary ${audience === opt ? '!border-[#2AFFD6] !text-[#2AFFD6]' : ''}`}
                 >
                   {opt}
                 </button>
@@ -381,7 +381,7 @@ export default function AntiGravityLanding() {
                 <button
                   key={opt}
                   onClick={() => setAnimationStyle(opt)}
-                  className={`px-5 py-2.5 font-mono text-xs transition-all border rounded-full duration-300 ${animationStyle === opt ? 'bg-[rgba(42,255,214,0.1)] border-[var(--accent-aqua)] text-[var(--accent-aqua)] shadow-[0_0_15px_rgba(42,255,214,0.15)]' : 'bg-[var(--surface-2)] border-[var(--border)] text-[var(--text)] hover:border-[var(--muted)] hover:text-white'}`}
+                  className={`btn-secondary ${animationStyle === opt ? '!border-[#2AFFD6] !text-[#2AFFD6]' : ''}`}
                 >
                   {opt}
                 </button>
@@ -403,7 +403,7 @@ export default function AntiGravityLanding() {
                 <button
                   key={opt}
                   onClick={() => setBackendComplexity(opt)}
-                  className={`px-5 py-2.5 font-mono text-xs transition-all border rounded-full duration-300 ${backendComplexity === opt ? 'bg-[rgba(42,255,214,0.1)] border-[var(--accent-aqua)] text-[var(--accent-aqua)] shadow-[0_0_15px_rgba(42,255,214,0.15)]' : 'bg-[var(--surface-2)] border-[var(--border)] text-[var(--text)] hover:border-[var(--muted)] hover:text-white'}`}
+                  className={`btn-secondary ${backendComplexity === opt ? '!border-[#2AFFD6] !text-[#2AFFD6]' : ''}`}
                 >
                   {opt}
                 </button>
@@ -427,7 +427,7 @@ export default function AntiGravityLanding() {
             <p className="text-[var(--muted)] mb-10 text-lg">AI color recommendation system based on your choices.</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               {getPalettes().map(p => (
-                <div key={p.name} onClick={() => { setColorPalette(p.name); setCustomColors(''); }} className={`p-5 rounded-2xl cursor-pointer border transition-all ${colorPalette === p.name ? 'border-[var(--accent-aqua)] bg-[rgba(42,255,214,0.05)] shadow-[0_0_15px_rgba(42,255,214,0.15)]' : 'border-[var(--border)] bg-[var(--surface-2)] hover:border-[var(--muted)] hover:-translate-y-1'}`}>
+                <div key={p.name} onClick={() => { setColorPalette(p.name); setCustomColors(''); }} className="card cursor-pointer" style={colorPalette === p.name ? { borderLeft: "2px solid #2AFFD6" } : {}}>
                   <div className="font-mono text-sm mb-3 text-[var(--text)]">{p.name}</div>
                   <div className="flex gap-2 mb-4">
                     {p.colors.map(c => (
@@ -441,7 +441,7 @@ export default function AntiGravityLanding() {
             <div className="mt-6">
               <button 
                 onClick={() => { setCustomColors(prev => prev ? '' : 'show'); setColorPalette(''); }} 
-                className="text-sm text-[var(--accent-aqua)] hover:underline font-mono"
+                className="btn-secondary"
               >
                 None of these feel right?
               </button>
@@ -471,7 +471,7 @@ export default function AntiGravityLanding() {
               placeholder="e.g. stripe.com, linear.app, vercel.com"
               className="w-full bg-[var(--surface-2)] border border-[var(--border)] p-4 rounded-xl text-[var(--text)] placeholder:text-[var(--muted)] focus:outline-none focus:border-[var(--accent-aqua)] transition-colors font-sans mb-8"
             />
-            <button onClick={handleNextStep} className="text-sm text-[var(--muted)] hover:text-[var(--text)] font-mono flex items-center gap-2 transition-colors">
+            <button onClick={handleNextStep} className="btn-secondary">
               Skip this step &rarr;
             </button>
           </div>
@@ -493,7 +493,7 @@ export default function AntiGravityLanding() {
                 <div 
                   key={c.val} 
                   onClick={() => setPromptDetail(c.val)}
-                  className={`relative p-6 rounded-2xl cursor-pointer border transition-all ${promptDetail === c.val ? 'border-[var(--accent-aqua)] bg-[rgba(42,255,214,0.05)] shadow-[0_0_15px_rgba(42,255,214,0.15)]' : 'border-[var(--border)] bg-[var(--surface-2)] hover:border-[var(--muted)] hover:-translate-y-1'}`}
+                  className="card cursor-pointer relative" style={promptDetail === c.val ? { borderLeft: "2px solid #2AFFD6" } : {}}
                 >
                   {c.recommended && (
                     <div className="absolute top-0 right-4 -translate-y-1/2 bg-[var(--accent-aqua)] text-[#06060a] text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full shadow-[0_0_10px_rgba(42,255,214,0.3)]">
@@ -555,7 +555,7 @@ export default function AntiGravityLanding() {
             Stop fighting with generic AI outputs. Get tailored, opinionated UI prompts meant for modern development tools.
           </p>
           <div className="animate-fade-up-3">
-             <a href="#generator" className="inline-block bg-[var(--surface-2)] border border-[var(--border)] text-[var(--text)] font-mono px-6 py-3 rounded-xl hover:-translate-y-1 hover:border-[var(--accent-aqua)] transition-all">
+             <a href="#generator" className="btn-primary inline-flex items-center justify-center">
                Start Building &darr;
              </a>
           </div>
@@ -563,7 +563,7 @@ export default function AntiGravityLanding() {
 
         {/* Floating Terminal Card */}
         <div className="flex-1 w-full max-w-lg animate-float-bob lg:mr-10">
-          <div className="bg-[var(--surface)] border border-[var(--border)] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(42,255,214,0.08)]">
+          <div className="card">
             <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--border)] bg-[#101018]">
               <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
               <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
@@ -593,7 +593,7 @@ export default function AntiGravityLanding() {
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-center lg:justify-start gap-8 font-mono text-sm text-[var(--muted)]">
           <span className="uppercase tracking-widest text-xs">Works with &rarr;</span>
           {['v0', 'Bolt', 'Cursor', 'Lovable', 'Replit'].map(tool => (
-            <div key={tool} className="px-5 py-2 rounded-full border border-[var(--border)] bg-[var(--surface)] hover:-translate-y-1 transition-transform cursor-default text-[var(--text)]">
+            <div key={tool} className="btn-pill">
               {tool}
             </div>
           ))}
@@ -617,7 +617,7 @@ export default function AntiGravityLanding() {
             { title: "Next-Gen Design DNA", desc: "We're a next-gen startup on a mission to kill generic AI design. Our engine is built to bridge the gap between code and senior design.", dur: "11s" }
           ].map((card, i) => (
             <div key={i} style={{ animation: `floatBob ${card.dur} ease-in-out infinite alternate` }}>
-              <div className="p-8 group bg-[var(--surface)] border border-[var(--border)] rounded-2xl hover:-translate-y-1 hover:border-[var(--accent-aqua)] hover:shadow-[0_0_20px_rgba(42,255,214,0.1)] transition-all duration-300 h-full">
+              <div className="card group h-full">
                 <div className="w-10 h-10 rounded-full bg-[rgba(42,255,214,0.1)] flex items-center justify-center mb-6 border border-[rgba(42,255,214,0.2)]">
                   <div className="w-2 h-2 rounded-full bg-[var(--accent-aqua)] shadow-[0_0_10px_var(--accent-aqua)]" />
                 </div>
@@ -631,7 +631,7 @@ export default function AntiGravityLanding() {
 
       {/* Multi-step prompt generator section */}
       <section id="generator" className="relative z-10 max-w-4xl mx-auto px-6 py-32">
-        <div className="animate-float-subtle bg-[var(--surface)] border border-[var(--border)] rounded-[20px] shadow-2xl p-8 md:p-12 relative overflow-hidden min-h-[500px]">
+        <div className="animate-float-subtle card shadow-2xl relative overflow-hidden min-h-[500px]">
           {/* Subtle top glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-aqua)] to-transparent opacity-20"></div>
 
@@ -668,7 +668,7 @@ export default function AntiGravityLanding() {
                 <button 
                   disabled={!idea.trim()}
                   onClick={() => setStep('questions')}
-                  className="bg-[var(--accent-orange)] text-white font-semibold font-sans px-8 py-4 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(255,107,53,0.3)] transition-all flex items-center gap-2 text-lg"
+                  className="btn-primary disabled:opacity-50"
                 >
                   Let's build this &rarr;
                 </button>
@@ -686,14 +686,14 @@ export default function AntiGravityLanding() {
               </div>
               
               <div className="flex flex-col sm:flex-row justify-between items-center mt-12 gap-4 border-t border-[var(--border)] pt-8">
-                <button onClick={handlePrevStep} className="text-[var(--text)] font-mono text-sm border border-[var(--border)] px-8 py-4 rounded-xl hover:bg-[var(--surface-2)] transition-colors w-full sm:w-auto">
+                <button onClick={handlePrevStep} className="btn-secondary w-full sm:w-auto">
                   &larr; Back
                 </button>
                 {qStep < 9 ? (
                   <button 
                     onClick={handleNextStep} 
                     disabled={!isCurrentStepValid()} 
-                    className="bg-[var(--surface-2)] text-[var(--accent-aqua)] font-mono text-sm border border-[var(--accent-aqua)] px-8 py-4 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[rgba(42,255,214,0.1)] hover:shadow-[0_0_15px_rgba(42,255,214,0.15)] transition-all w-full sm:w-auto"
+                    className="btn-primary disabled:opacity-50 w-full sm:w-auto"
                   >
                     Next Step &rarr;
                   </button>
@@ -701,7 +701,7 @@ export default function AntiGravityLanding() {
                   <button 
                     onClick={generateUX} 
                     disabled={!isCurrentStepValid()} 
-                    className="bg-[var(--accent-orange)] text-white font-semibold font-sans px-10 py-4 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(255,107,53,0.3)] transition-all w-full sm:w-auto text-lg"
+                    className="btn-primary disabled:opacity-50 w-full sm:w-auto"
                   >
                     Generate Prompt &rarr;
                   </button>
@@ -712,7 +712,7 @@ export default function AntiGravityLanding() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="glass-card rounded-2xl p-8 md:p-12 text-center border border-[var(--border)] bg-[#12121a] relative overflow-hidden"
+              className="card text-center relative overflow-hidden"
             >
               <div className="w-full h-0.5 bg-white/[0.06] rounded-full mb-8 overflow-hidden">
                 <motion.div
@@ -781,12 +781,12 @@ export default function AntiGravityLanding() {
               </div>
 
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <button onClick={resetAll} className="w-full sm:w-auto text-[var(--text)] border border-[var(--border)] px-8 py-4 rounded-xl hover:bg-[var(--surface-2)] transition-colors font-mono text-sm">
+                <button onClick={resetAll} className="btn-secondary w-full sm:w-auto">
                   Start Over
                 </button>
                 <button 
                   onClick={() => copyToClipboard(result?.prompt || '', 'Prompt')}
-                  className="w-full sm:w-auto bg-[var(--accent-aqua)] text-[#06060a] font-bold px-10 py-4 rounded-xl hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(42,255,214,0.3)] transition-all font-mono text-sm uppercase tracking-wide"
+                  className="btn-primary w-full sm:w-auto"
                 >
                   {copied ? "Copied to clipboard!" : "Copy Prompt ->"}
                 </button>
@@ -804,13 +804,13 @@ export default function AntiGravityLanding() {
                     <div className="flex justify-center gap-4 mb-4">
                       <button 
                         onClick={() => setFeedbackReaction('👍')} 
-                        className={`px-6 py-3 rounded-full border bg-[var(--surface-2)] transition-all ${feedbackReaction === '👍' ? 'border-[var(--accent-aqua)] shadow-[0_0_10px_rgba(42,255,214,0.15)]' : 'border-[var(--border)] hover:border-[var(--accent-aqua)]'}`}
+                        className={`btn-secondary ${feedbackReaction === '👍' ? '!border-[#2AFFD6] !text-[#2AFFD6]' : ''}`}
                       >
                         👍 Yes
                       </button>
                       <button 
                         onClick={() => setFeedbackReaction('👎')} 
-                        className={`px-6 py-3 rounded-full border bg-[var(--surface-2)] transition-all ${feedbackReaction === '👎' ? 'border-[var(--accent-aqua)] shadow-[0_0_10px_rgba(42,255,214,0.15)]' : 'border-[var(--border)] hover:border-[var(--accent-aqua)]'}`}
+                        className={`btn-secondary ${feedbackReaction === '👎' ? '!border-[#2AFFD6] !text-[#2AFFD6]' : ''}`}
                       >
                         👎 Needs work
                       </button>
@@ -825,7 +825,7 @@ export default function AntiGravityLanding() {
                         />
                         <button 
                           onClick={handleSendFeedback}
-                          className="w-full bg-[var(--accent-orange)] text-white font-semibold font-sans px-6 py-3.5 rounded-xl hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(255,107,53,0.3)] transition-all text-base"
+                          className="btn-primary w-full"
                         >
                           Send Feedback &rarr;
                         </button>
@@ -848,7 +848,7 @@ export default function AntiGravityLanding() {
             { num: '02', title: 'Smart Synthesis', desc: 'Our engine applies strict design principles to structure the prompt perfectly.', dur: 'animate-float-bob' },
             { num: '03', title: 'Ship Immediately', desc: 'Paste into Cursor, Bolt, or v0 and get a pixel-perfect layout on the first run.', dur: 'animate-float-subtle' },
           ].map((step, i) => (
-            <div key={i} className={`flex-1 p-10 bg-[var(--surface)] border border-[var(--border)] rounded-2xl flex flex-col relative overflow-hidden group hover:border-[var(--border)] transition-colors ${step.dur}`}>
+            <div key={i} className={`card flex-1 flex flex-col relative overflow-hidden group ${step.dur}`}>
               <div className="absolute top-0 right-0 p-8 font-serif text-8xl text-stroke-aqua opacity-20 group-hover:opacity-40 transition-opacity">
                 {step.num}
               </div>
